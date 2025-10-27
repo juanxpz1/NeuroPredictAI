@@ -41,7 +41,7 @@ export default function Home() {
                 variant="outline"
                 size="sm"
                 className="gap-2 hover:bg-accent/10 hover:text-accent hover:border-accent transition-colors bg-transparent"
-                onClick={() => window.open("https://github.com/tu-usuario/tu-repositorio", "_blank")}
+                onClick={() => window.open("https://github.com/juanxpz1/NeuroPredictAI", "_blank")}
               >
                 <Github className="w-4 h-4" />
                 <span className="hidden sm:inline">GitHub</span>
