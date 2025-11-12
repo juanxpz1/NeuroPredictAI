@@ -8,12 +8,11 @@ import { ModelSelector } from "@/components/model-selector"
 import { TrainingPanel } from "@/components/training-panel"
 import { PredictionPanel } from "@/components/prediction-panel"
 import { BatchPredictionPanel } from "@/components/batch-prediction-panel"
-import { Activity, Microscope, MapPin, Database, Github } from "lucide-react"
+import { Activity, Microscope, MapPin, Github } from "lucide-react"
 
 export default function Home() {
   const [selectedModel, setSelectedModel] = useState<"RNA" | "RLO">("RNA")
   const [isModelTrained, setIsModelTrained] = useState(false)
-  const [modelMetrics, setModelMetrics] = useState<any>(null)
 
   return (
     <div className="min-h-screen bg-background">
@@ -46,13 +45,6 @@ export default function Home() {
                 <Github className="w-4 h-4" />
                 <span className="hidden sm:inline">GitHub</span>
               </Button>
-              <div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/50 border border-border">
-                <Database className="w-4 h-4 text-accent" />
-                <div className="text-left">
-                  <p className="text-[10px] text-muted-foreground font-medium">Dataset</p>
-                  <p className="text-xs font-semibold text-foreground">81 pacientes, 56 variables</p>
-                </div>
-              </div>
               <div className="flex items-center gap-3 px-4 py-2 rounded-lg bg-muted/50 border border-border">
                 <div
                   className={`w-2.5 h-2.5 rounded-full ${isModelTrained ? "bg-accent shadow-lg shadow-accent/50 animate-pulse" : "bg-muted-foreground/50"}`}
@@ -91,36 +83,10 @@ export default function Home() {
 
             <TrainingPanel
               selectedModel={selectedModel}
-              onTrainingComplete={(metrics) => {
+              onTrainingComplete={() => {
                 setIsModelTrained(true)
-                setModelMetrics(metrics)
               }}
             />
-
-            {modelMetrics && (
-              <Card className="p-6 bg-card border-border shadow-lg">
-                <h3 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-accent" />
-                  Métricas del Modelo
-                </h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center p-2 rounded-lg bg-muted/50">
-                    <span className="text-xs font-medium text-muted-foreground">Precisión (Accuracy)</span>
-                    <span className="text-sm font-mono font-bold text-accent">{modelMetrics.accuracy}%</span>
-                  </div>
-                  <div className="flex justify-between items-center p-2 rounded-lg bg-muted/50">
-                    <span className="text-xs font-medium text-muted-foreground">F1-Score</span>
-                    <span className="text-sm font-mono font-bold text-accent">{modelMetrics.f1Score}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-2 rounded-lg bg-muted/50">
-                    <span className="text-xs font-medium text-muted-foreground">Tiempo de Entrenamiento</span>
-                    <span className="text-sm font-mono font-bold text-muted-foreground">
-                      {modelMetrics.trainingTime}s
-                    </span>
-                  </div>
-                </div>
-              </Card>
-            )}
           </div>
 
           {/* Main Panel - Predictions */}
